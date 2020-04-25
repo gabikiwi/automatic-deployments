@@ -1,0 +1,139 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>eu.kiwi.sdmxregistry.jaxrs.rest</groupId>
+	<artifactId>mock-sdmxregistry</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- <parent> <groupId>eu.europa.ec.estat.top</groupId> <artifactId>top-war</artifactId> 
+		<version>1.0.17</version> </parent> -->
+
+	<!-- <issueManagement> <system>JIRA</system> <url>https://webgate.ec.europa.eu/CITnet/jira/browse/SERVDEVS</url> 
+		</issueManagement> -->
+
+	<name>DEPLOYMENT :: jax-rs-sample parent</name>
+	<url>http://maven.apache.org</url>
+
+	<modules>
+		<module>mock-sdmxregistry-jax-rs-service</module>
+		<module>mock-sdmxregistry-jax-rs-service-tomcat</module>
+		<module>mock-sdmxregistry-jax-rs-service-weblogic</module>
+	</modules>
+
+	<properties>
+		<tomcat.version>8</tomcat.version>
+		<java.version>1.8</java.version>
+		<jersey.version>2.16</jersey.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+
+
+
+	<pluginRepositories>
+
+		<pluginRepository>
+			<id>ishswls-oracle-lib</id>
+			<name>Oracle Maven Plugin Repository</name>
+			<url>https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/ishswls-oracle-libs/</url>
+			<!--<url>http://intragate.ec.europa.eu/tools/nexus/repository/weblogic-oracle-libs/</url>-->
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>https://repo.maven.apache.org/maven2</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>tomcat8</id>
+			<name>Repository for Tomcat 8 Plugin</name>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+
+		<!-- <pluginRepository>
+			<id>maven.oracle.com</id>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<url>https://maven.oracle.com</url>
+			<layout>default</layout>
+
+		</pluginRepository>-->
+	</pluginRepositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.glassfish.jersey.bundles</groupId>
+			<artifactId>jaxrs-ri</artifactId>
+			<version>2.16</version>
+			<!--<scope>provided</scope> -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>2.16</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<finalName>mock-sdmxregistry-jax-rs</finalName>
+
+		<plugins>
+
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<!--<version>2.5.1</version> -->
+				<version>3.8.1</version>
+				<inherited>true</inherited>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+
+		</plugins>
+	</build>
+</project>

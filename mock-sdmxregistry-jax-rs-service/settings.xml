@@ -1,0 +1,50 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      https://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+
+	<proxies>
+		<proxy>
+			<id>https</id>
+			<active>true</active>
+			<protocol>https</protocol>
+			<host>pslux.cec.eu.int</host>
+			<port>8012</port>
+			<nonProxyHosts>localhost|127.0.0.1|*.cec.eu.int|ec.europa.eu|*.ec.europa.eu
+			</nonProxyHosts>
+			<username>chivoga</username>
+			<password>...</password>
+		</proxy>
+
+
+		<proxy>
+			<id>http</id>
+			<active>true</active>
+			<protocol>http</protocol>
+			<host>pslux.cec.eu.int</host>
+			<port>8012</port>
+			<nonProxyHosts>localhost|127.0.0.1|*.cec.eu.int|ec.europa.eu|*.ec.europa.eu
+			</nonProxyHosts>
+			<username>chivoga</username>
+			<password>...</password>
+		</proxy>
+	</proxies>
+
+	<profiles>
+		<profile>
+			<id>inside-eurostat</id>
+			
+			<properties>
+				<activate.proxy>true</activate.proxy>
+			</properties>
+
+		</profile>
+	</profiles>
+
+	<activeProfiles>
+	    <!-- Also with an Eurostat machine -->
+		<activeProfile>inside-eurostat</activeProfile>
+	</activeProfiles>
+
+</settings>

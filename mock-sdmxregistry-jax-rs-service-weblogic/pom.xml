@@ -1,0 +1,134 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>eu.kiwi.sdmxregistry.jaxrs.rest</groupId>
+		<artifactId>mock-sdmxregistry</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- <packaging>pom</packaging>-->
+	<packaging>war</packaging>
+	<artifactId>mock-sdmxregistry-service-weblogic</artifactId>
+
+	<name>DEPLOYMENT :: jax-rs-sample service Weblogic</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>eu.kiwi.sdmxregistry.jaxrs.rest</groupId>
+			<artifactId>mock-sdmxregistry-jax-rs-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>ishswls-oracle-lib</id>
+			<name>Oracle Maven Plugin Repository</name>
+			<!--<url>https://webgate.ec.europa.eu/CITnet/nexus/content/repositories/ishswls-oracle-libs/</url> -->
+			<url>http://intragate.ec.europa.eu/tools/nexus/repository/weblogic-oracle-libs/</url>
+			<layout>default</layout>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+
+
+	<build>
+
+		<plugins>
+
+			<!-- <plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+				<artifactId>copy-rename-maven-plugin</artifactId>
+				<version>1.0.1</version>
+				<executions>
+
+					<execution>
+						<id>copy-webapp</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<fileSets>
+								<fileSet>
+									<sourceFile>../mock-sdmxregistry-jax-rs-service/target/mock-sdmxregistry-jax-rs-service.war</sourceFile>
+									<destinationFile>${project.basedir}//target//mock-sdmxregistry-jax-rs-service.war</destinationFile>
+								</fileSet>
+							</fileSets>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								                       
+								<file>weblogic.properties</file>
+								                    
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<!-- This is the configuration for the weblogic-maven-plugin  -->
+				<groupId>com.oracle.weblogic</groupId>
+				<artifactId>weblogic-maven-plugin</artifactId>
+				<version>12.2.1-3-0</version>
+				<configuration>
+					<!--The admin URL where the app is deployed. Here use the plugin's default value t3://localhost:7001  -->
+					<adminurl>${oracleServerUrl}</adminurl>
+					<user>${oracleUsername}</user>
+					<password>${oraclePassword}</password>
+					<!--<userConfigFile>${userConfigFile}</userConfigFile> -->
+					<!--<userKeyFile>${userKeyFile}</userKeyFile> -->
+					<targets>${oracleServerName}</targets>
+					<verbose>true</verbose>
+					<upload>true</upload>
+				</configuration>
+				<executions>
+					<execution>
+						<id>1_war</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>redeploy</goal>
+						</goals>
+						<configuration>
+							<!-- <source>${project.basedir}/target/mock-sdmxregistry-jax-rs-service.war</source>-->
+							<source>${project.basedir}/target/mock-sdmxregistry-jax-rs.war</source>
+							<name>mock-sdmxregistry-jax-rs-service.war</name>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+
+		</plugins>
+	</build>
+</project>
